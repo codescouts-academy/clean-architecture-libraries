@@ -19,7 +19,7 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/docs/intro"
           >
-            How to use Tutorial - 5min ⏱️
+            Aprende a usar nuestras librerías - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -28,10 +28,9 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title="Inicio"
       description="Description will go into a meta tag in <head />"
     >
       <HomepageHeader />
