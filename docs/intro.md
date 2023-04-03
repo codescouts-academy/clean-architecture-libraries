@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Clean architecture en Frontend
+# Intro
 
 Aquí te enseñaremos como implementar las librerías que creamos en CodeScouts para implementar Clean Architecture **en menos de 5 minutos**.
 
