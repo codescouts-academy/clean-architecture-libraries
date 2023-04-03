@@ -25,8 +25,7 @@ import { Log } from "@domain/model/Log";
 import { NewLogRegistered } from "@domain/events/NewLogRegistered";
 
 export class TestUseCase {
-    constructor(private readonly loggerService: LoggerService,
-        private readonly dispatcher: IEventDispatcher) {
+    constructor(private readonly dispatcher: IEventDispatcher) {
 
     }
 
