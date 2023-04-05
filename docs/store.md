@@ -37,7 +37,7 @@ Si inyectamos un **DomainService** utilizando nuestra librería, no solo podremo
 
 ### Nuestro caso de uso
 
-```ts
+```ts showLineNumbers
 import { IEventDispatcher } from "@codescouts/events";
 
 import { Log } from "@domain/model/Log";
@@ -58,7 +58,7 @@ export class TestUseCase {
 
 ### Nuestro Domain Service
 
-```ts
+```ts showLineNumbers
 import { Log } from "../model/Log";
 
 export interface LoggerService {
@@ -71,7 +71,7 @@ export interface LoggerService {
 
 Veamos el siguiente componente de UI que mostrará los logs
 
-```ts
+```ts showLineNumbers
 import styles from "./Logs.module.css";
 import { useHomeViewModel } from "../useHomeViewModel";
 
@@ -109,9 +109,25 @@ export const Logs = () => {
 
 ```
 
+NOTA: Como puedes observar en la línea 27, estamos utilizando la instancia de la clase Log. Veamos su implementación:
+
+```ts showLineNumbers
+export class Log {
+    public readonly when: number;
+
+    constructor(public readonly message: string) {
+        this.when = new Date().getTime()
+    }
+
+    public format() {
+        return `${this.message} - ${new Date(this.when).toDateString()}`;
+    }
+}
+```
+
 Si recordamos lo que plantea esta arquitectura aquí [**Clean architecture**](./clean-architecture), veremos que utilizamos un **ViewModel** como componente que desacopla la UI de su comportamiento. Y será algo así 👇
 
-```ts
+```ts showLineNumbers
 import { useCallback, useRef } from "react";
 
 import { TestUseCase } from "@application/test-use-case";
@@ -138,7 +154,7 @@ Ahora, y como implementaríamos el **useLogger** como implementación de nuestro
 
 ### Implementación de Domain Service
 
-```ts
+```ts showLineNumbers
 import { create } from "@codescouts/store";
 
 import { Log } from "@domain/model";
@@ -167,7 +183,7 @@ Puedes ver la documentación aquí: [**¿Cómo inyectar las dependencias?**](./d
 
 Una vez que configures el inyector de dependencias, será así
 
-```ts
+```ts showLineNumbers
 import { useCallback, useRef } from "react";
 import { useResolve } from "@codescouts/ui";
 

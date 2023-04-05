@@ -23,7 +23,7 @@ Ahora lo que deberás hacer es inyectarlo como dependencia en tus casos de uso p
 
 ### Ejemplo de dispatch
 
-```ts
+```ts showLineNumbers
 import { IEventDispatcher } from "@codescouts/events";
 
 import { Log } from "@domain/model/Log";
@@ -47,7 +47,7 @@ Pero si hablamos concretamente de **React** podrás utilizar nuestro paquete de 
 
 ### Ejemplo del evento
 
-```ts
+```ts showLineNumbers
 import { DomainEvent } from "@codescouts/events";
 import { Log } from "../model/Log";
 
@@ -60,7 +60,7 @@ export class NewLogRegistered extends DomainEvent {
 
 ### Ejemplo del handler
 
-```ts
+```ts showLineNumbers
 import { Handler } from "@codescouts/events";
 import { NewLogRegistered } from "./NewLogRegistered";
 
@@ -90,7 +90,7 @@ npm i --save @codescouts/ui
 
 Puedes instanciar a mano tu caso de uso de esta manera, aunque también puedes utilizar inyección de dependencias si así lo deseas [**Dependency injection**](./dependency-injection)
 
-```ts
+```ts showLineNumbers
 export const Foo = ()=> {
     const dispatcher = useEventDispatcher();
     const useCase = new TestUseCase(dispatcher);
@@ -103,7 +103,7 @@ export const Foo = ()=> {
 
 Aún no terminamos, ya que en tu aplicación React tendrás que ejecutar el hook de **useEvents** así 👇 para que tu aplicación registre los **Handlers** del los **DomainEvents** que tienes.
 
-```ts
+```ts showLineNumbers
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEvents, DependencyInjectionContainer } from "@codescouts/ui";
 
@@ -140,7 +140,7 @@ No hace falta aclarar, pero lógicamente aquí es donde registrarás todos tus h
 
 NOTA: Si necesitas pasarle al handler la implementación de un hook, primer debes ejecutar el hook **fuera** del useEvents y pasarle la referencia
 
-```ts
+```ts showLineNumbers
 export const Foo = ()=> {
     useEvents(()=> {
         new YourHandler(useBar()) ❌

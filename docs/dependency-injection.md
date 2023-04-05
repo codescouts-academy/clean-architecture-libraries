@@ -18,7 +18,7 @@ Este paquete depende de un paquete llamado [**ts-injecty**](https://github.com/d
 
 Tendrás que envolver tus componentes con el **HOC** **DependencyInjectionContainer** y de esta manera el contenedor estará a tu disposición cuando lo necesitas utilizando el hook **useResolve**
 
-```ts
+```ts showLineNumbers
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEvents, DependencyInjectionContainer } from "@codescouts/ui";
 
@@ -56,7 +56,7 @@ export default App;
 
 Tu función **buildDependencies** puede ser algo así
 
-```ts
+```ts showLineNumbers
 import { register } from "ts-injecty";
 import { useEventDispatcher } from "@codescouts/ui";
 
@@ -74,7 +74,7 @@ export const buildDependencies = (builder: typeof register) => {
 
 y Ahora cuando necesites resolver por ejemplo el caso de uso **TestUseCase** debes hacerlo así
 
-```ts
+```ts showLineNumbers
 import { useResolve } from "@codescouts/ui";
 
 import { TestUseCase } from "@application/test-use-case";
