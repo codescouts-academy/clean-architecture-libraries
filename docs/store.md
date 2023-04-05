@@ -4,24 +4,38 @@ sidebar_position: 2
 
 # Store Reactivo
 
+## Utilidad
+
+Esta librería nos permitirá actualizar los objetos de dominio desde nuestra **Capa de aplicación** implementando interfaces que se utilizan como **Domain services**
+
+## Instalación
+
 Este store puedes instalarlo de la siguiente forma:
 
 ```bash
-npm i --save @codescouts/ui
+npm i --save @codescouts/store
 ```
 
-Este paquete depende de [**Zustand**](https://github.com/pmndrs/zustand)
+## Dependencias
+
+-   [**Zustand**](https://github.com/pmndrs/zustand)
+-   [**React**](https://reactjs.org/)
 
 ## Actualizar nuestra UI desde una capa de aplicación
 
-Esta librería nos permitirá actualizar tus objetos de dominio que serán populados a la UI para mantener la reactividad en tu aplicación.
+Partiremos del ejemplo que plantea el template que construimos 👇
 
-Si tienes un caso de uso en tu capa de aplicación, que agrega un log en la UI, y quieres mostrar el nuevo elemento en la UI una vez lo agregues.
+```bash
+npx create-react-app clean-arch  --template @codescouts/clean-architecture-template
+```
 
-Cuando invocas el **execute** de tu caso de uso, podrás utilizar tus objetos de dominio, pero de vez en cuando, deberás actualizar tu UI.
-Si inyectas tu **DomainService** utilizando nuestra librería, no solo podrás acceder a tus objetos allí guardados, sino que cada vez que lo actualices, actualizarás también la UI.
+Partiendo de este ejemplo tenemos un caso de uso en la **Capa de aplicación** que agrega un log, y posteriormente necesitamos actualizar la UI para que el usuario vea los logs que se van agregando, ¿Cierto?.
 
-### Veamos el caso de uso
+Cuando invocamos el **execute** del caso de uso, podremos utilizar objetos de dominio, pero de vez en cuando, nos interesará actualizar tu UI.
+
+Si inyectamos un **DomainService** utilizando nuestra librería, no solo podremos acceder a los objetos allí guardados, sino que cada vez que lo actualicemos, también lo hará la UI.
+
+### Nuestro caso de uso
 
 ```ts
 import { IEventDispatcher } from "@codescouts/events";
@@ -42,7 +56,7 @@ export class TestUseCase {
 }
 ```
 
-### El Domain Service
+### Nuestro Domain Service
 
 ```ts
 import { Log } from "../model/Log";
@@ -53,7 +67,7 @@ export interface LoggerService {
 }
 ```
 
-### Veamos la implementación desde la UI
+### Nuestro Componente React
 
 Veamos el siguiente componente de UI que mostrará los logs
 
@@ -122,7 +136,7 @@ export const useHomeViewModel = () => {
 
 Ahora, y como implementaríamos el **useLogger** como implementación de nuestro **DomainService**, veamoslo 👇
 
-### Implementación de nuestro Store Reactivo
+### Implementación de Domain Service
 
 ```ts
 import { create } from "@codescouts/store";

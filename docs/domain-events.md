@@ -4,7 +4,10 @@ sidebar_position: 3
 
 # Domain events
 
+## Utilidad
+
 Para poder utilizar eventos de dominio en esta arquitectura debes instalar nuestro paquete que permitirá hacer **dispatch** de los eventos que vayan ocurriendo en la aplicación.
+El uso de eventos de dominio es una excelente estrategia para desacoplar acciones que deben ejecutarse ante un determinado evento en nuestra aplicación.
 
 ### Instalación
 
@@ -12,7 +15,9 @@ Para poder utilizar eventos de dominio en esta arquitectura debes instalar nuest
 npm i --save @codescouts/events
 ```
 
-Este paquete no tiene dependencias, con lo cual podrás instalarlo en cualquier aplicación que lo desees.
+## Dependencias
+
+-   No tiene
 
 Ahora lo que deberás hacer es inyectarlo como dependencia en tus casos de uso para poder hacer el **dispatch** cuando lo deseeas
 
