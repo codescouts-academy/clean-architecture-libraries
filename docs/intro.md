@@ -28,7 +28,7 @@ Para poder implementar nuestra librería tienes dos opciones.
 ### Crea una nueva web con (React)
 
 ```bash
-npm create vite@latest my-vue-app -- --template react-ts
+npm create vite@latest my-app -- --template react-ts
 ```
 
 ### Utiliza nuestro template (Create react app)
