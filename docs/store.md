@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Utilidad
 
-Esta librería nos permitirá actualizar los objetos de dominio desde nuestra **Capa de aplicación** implementando interfaces que se utilizan como **Domain services**
+Esta librería nos permitirá actualizar los objetos de dominio desde nuestra **Capa de aplicación** implementando interfaces de nuestros Domain services
 
 ## Instalación
 
@@ -26,7 +26,7 @@ npm i --save @codescouts/store
 Partiremos del ejemplo que plantea el template que construimos 👇
 
 ```bash
-npx create-react-app clean-arch  --template @codescouts/clean-architecture-template
+npx create-react-app my-app --template @codescouts/clean-architecture-template
 ```
 
 Partiendo de este ejemplo tenemos un caso de uso en la **Capa de aplicación** que agrega un log, y posteriormente necesitamos actualizar la UI para que el usuario vea los logs que se van agregando, ¿Cierto?.
@@ -109,7 +109,9 @@ export const Logs = () => {
 
 ```
 
-NOTA: Como puedes observar en la línea 27, estamos utilizando la instancia de la clase Log. Veamos su implementación:
+:::note nota
+Como puedes observar en la línea 27, estamos utilizando la instancia de la clase Log. Veamos su implementación:
+:::
 
 ```ts showLineNumbers
 export class Log {
@@ -173,7 +175,9 @@ Como vemos aquí, este store, recibe en su **Generic** el objeto que quieres imp
 
 Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes simplemente antes de ejecutar el build, debes enviar como parámetro la clase que quieres restaurar.
 
-NOTA: Nuestro store se encargará de instanciar nuevamente la clase, para que puedas disponer de todo su comportamiento nuevamente.
+:::note nota
+Nuestro store se encargará de instanciar nuevamente la clase, para que puedas disponer de todo su comportamiento nuevamente.
+:::
 
 Al finalizar debes ejecutar el build, para que cree el estado según tu configuración.
 

@@ -4,7 +4,9 @@ sidebar_position: 4
 
 # Dependency injection
 
-Esta arquitectura tiene su propio contenedor de inyección de dependencias, para ello debes instalar el paquete 👇
+## Utilidad
+
+Esta librería te permitirá montar un contenedor de inyección de dependencias.
 
 ### Instalación
 
@@ -12,7 +14,9 @@ Esta arquitectura tiene su propio contenedor de inyección de dependencias, para
 npm i --save @codescouts/ui
 ```
 
-Este paquete depende de un paquete llamado [**ts-injecty**](https://github.com/damianpumar/ts-injecty) creado por **Damián Pumar** a partir de un fork de **rsdi**
+## Dependencias
+
+-   [**ts-injecty**](https://github.com/damianpumar/ts-injecty)
 
 ### Implementación en React
 
@@ -72,7 +76,7 @@ export const buildDependencies = (builder: typeof register) => {
 }
 ```
 
-y Ahora cuando necesites resolver por ejemplo el caso de uso **TestUseCase** debes hacerlo así
+y ahora cuando necesites resolver por ejemplo el caso de uso **TestUseCase** debes hacerlo así
 
 ```ts showLineNumbers
 import { useResolve } from "@codescouts/ui";

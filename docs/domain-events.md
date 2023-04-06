@@ -138,7 +138,9 @@ Lo único que tienes que hacer es instanciar el tu **Handler** dentro del **useE
 
 No hace falta aclarar, pero lógicamente aquí es donde registrarás todos tus handlers, incluso te recomendamos que puedas generarte una función que registre todos los handlers, y aquí referenciarla.
 
-NOTA: Si necesitas pasarle al handler la implementación de un hook, primer debes ejecutar el hook **fuera** del useEvents y pasarle la referencia
+:::note nota
+Si necesitas pasarle al handler la implementación de un hook, primer debes ejecutar el hook **fuera** del useEvents y pasarle la referencia
+:::
 
 ```ts showLineNumbers
 export const Foo = ()=> {
