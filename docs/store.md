@@ -173,13 +173,19 @@ Como vemos aquí, este store, recibe en su **Generic** el objeto que quieres imp
 
 #### Persistir el store
 
-Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes simplemente antes de ejecutar el build, debes enviar como parámetro la clase que quieres restaurar.
+Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes invocar la funcion withPersist, y como argumento referenciar tu clase.
 
 :::note nota
 Nuestro store se encargará de instanciar nuevamente la clase, para que puedas disponer de todo su comportamiento nuevamente.
 :::
 
 Al finalizar debes ejecutar el build, para que cree el estado según tu configuración.
+
+Tambien tienes disponible este store para Svelte, mantiene tambien la misma api.
+
+```bash
+npm i --save @codescouts/svelte-store
+```
 
 ## Instanciar el caso de uso con Inyección de Dependencias
 
