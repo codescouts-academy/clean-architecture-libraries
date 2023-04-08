@@ -177,6 +177,8 @@ Nuestra librería soporta el guardado y la restauración de los objetos de domin
 
 Para ello, lo que tienes que hacer es utilizar el método **withPersist** y pasarle como argumento la referencia de tu objeto.
 
+Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes invocar la funcion withPersist, y como argumento referenciar tu clase.
+
 ```ts showLineNumbers
 export const useLogger = create<LoggerService>((set) => ({
     logs: [],
@@ -211,6 +213,12 @@ class Foo {
 Nuestro **store** es capaz de no solo restaurar la instancia de la clase **Foo** sino también restaurará la instancia de la clase **Bar**.
 
 Al finalizar debes ejecutar el build, para que cree el estado según tu configuración.
+
+Tambien tienes disponible este store para Svelte, mantiene tambien la misma api.
+
+```bash
+npm i --save @codescouts/svelte-store
+```
 
 ## Instanciar el caso de uso con Inyección de Dependencias
 
