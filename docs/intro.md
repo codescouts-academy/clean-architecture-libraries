@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Intro
 
-Bienvenido a **Library de CodeScouts**, en este sitio encontrarás documentación a nuestra librería de UI para implementar [**Clean architecture**](./clean-architecture) en Frontend, por el momento con [**React**](https://reactjs.org/), aunque estamos trabajando para implementarla en [**Svelte**](https://svelte.dev/) y [**VueJS**](https://vuejs.org/)
+Bienvenido a **Library de CodeScouts**, en este sitio encontrarás documentación acerca de nuestras librerías qu te permitirán implementar [**Clean architecture**](./clean-architecture) en Frontend, por el momento con [**React**](https://reactjs.org/), aunque estamos trabajando para implementarla en [**Svelte**](https://svelte.dev/) y [**VueJS**](https://vuejs.org/)
 
 Nuestro reto es enseñarte a implementarla en **no más de 5 minutos**. Vamos 🚀
 

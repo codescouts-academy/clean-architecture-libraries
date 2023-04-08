@@ -171,13 +171,44 @@ export const useLogger = create<LoggerService>((set) => ({
 
 Como vemos aquí, este store, recibe en su **Generic** el objeto que quieres implementar, y al construirlo recibe un setter, este mismo permitirá actualizar el objeto.
 
-#### Persistir el store
+## Persistir el store
 
-Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes simplemente antes de ejecutar el build, debes enviar como parámetro la clase que quieres restaurar.
+Nuestra librería soporta el guardado y la restauración de los objetos de dominio incluso cuando el usuario refresca el navegador.
+
+Para ello, lo que tienes que hacer es utilizar el método **withPersist** y pasarle como argumento la referencia de tu objeto.
+
+```ts showLineNumbers
+export const useLogger = create<LoggerService>((set) => ({
+    logs: [],
+    save: (log: Log) => set((state) => ({ logs: [...state.logs, log] }))
+}))
+//highlight-start
+   .withPersist(Log)
+//highlight-end
+   .build();
+```
 
 :::note nota
-Nuestro store se encargará de instanciar nuevamente la clase, para que puedas disponer de todo su comportamiento nuevamente.
+Nuestro store se encargará de instanciar nuevamente la clase y todas sus relaciones, para que puedas disponer de todo su comportamiento nuevamente.
 :::
+
+### Restaurar el estado
+
+```ts showLineNumbers
+class Foo {
+  inner: Bar;
+
+  public constructor(){
+    this.inner = new Bar()
+  }
+
+  foo() {
+
+  }
+}
+```
+
+Nuestro **store** es capaz de no solo restaurar la instancia de la clase **Foo** sino también restaurará la instancia de la clase **Bar**.
 
 Al finalizar debes ejecutar el build, para que cree el estado según tu configuración.
 
