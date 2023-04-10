@@ -1,41 +1,100 @@
-# Website
+<p align="center">
+  <a href="https://www.codescouts.academy/" target="_blank">
+    <img alt="CodeScouts" src="https://www.codescouts.academy/images/logo-all-yellow.png" />
+  </a>
+</p>
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+<h1 align="center">
+ 📄 Documentación para implementar las librerías de CodeScouts para el Frontend 🚀
+</h1>
 
-### Installation
+<p align="center">
+  Documentación 📄
+  <br />
+  <br />
+  <a href="https://github.com/codescouts-academy/clean-architecture-libraries/stargazers">Stars are welcome 😊</a>
+  <a href="https://github.com/codescouts-academy/clean-architecture-libraries/issues">Report an error 🐛</a>
+</p>
 
-```
-$ yarn
-```
+## 🚀 Libraries
 
-### Local Development
+### 🧑‍🚀 Reactive store
 
-```
-$ yarn start
-```
+For react ⚛️
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
-
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
+```sh
+npm i --save @codescouts/store
 ```
 
-Not using SSH:
+For svelte 🔝
+
+```sh
+npm i --save @codescouts/svelte-store
+```
+
+### ⚡ Domain Events (Agnostic)
+
+```sh
+npm i --save @codescouts/event
+```
+
+### 🤘 UI package (Dependency injection, events and more) for React ⚛️
+
+```sh
+npm i --save @codescouts/ui
+```
+
+### 🧪 Test library (Unit and Integration)
+
+```sh
+npm i --save-dev @codescouts/test
+```
+
+## 📃 Starter kit template
+
+```sh
+npx create-react-app my-app --template @codescouts/clean-architecture-template
+```
+
+## 👩‍💻 Project explanation
+
+### 📁 Recommended folder structure
 
 ```
-$ GIT_USER=<Your GitHub username> yarn deploy
+
+    public/
+    ├── favicon.png --> CodeScouts's logo
+    ├── index.html --> Main html file
+    │
+    src/
+    ├── application/ Our use cases
+    │   ├── get-initial-value-use-case.ts --> Here we model the use cases
+    │   ├── increment-use-case.ts
+    │   └── decrement-use-case.ts
+    ├── domain/ Our Business logic
+    │   ├── events --> Here we model the domain events
+    │   ├── model --> Here we model our business logic
+    │   ├── repository --> Here exists the domain repositories (only abstractions)
+    │   └── services --> Here exists the domain services (only abstractions)
+    │
+    ├── infrastructure/ Our external services implementations
+    │   ├── repository --> Here we model the domain events
+    │   │   └── CounterService.ts --> Implementation for domain abstractions
+    │   └── services
+    │       └── CounterService.ts --> Implementation for domain abstractions
+    │
+    ├── ui/ React things
+    │   ├── components/ --> Stateless components
+    │   └── pages/
+    │       └── home/
+    │           ├── Home.tsx --> Page component (View)
+    │           └── useHomeViewModel.ts --> Home UI business logic (ViewModel)
+    │
+    ├── app.tsx
+    └── index.tsx
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+## 🤔 Contributing
+
+Si encuentras algún error, crees que hay cosas por mejorar o simplemente quieres contribuir, eres bienvenido/a.
+Solo realiza un fork y envíanos tu PR 🙏.
