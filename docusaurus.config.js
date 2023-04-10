@@ -6,8 +6,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "CodeScouts libraries",
-  tagline: "This is our libraries to implement Clean Architecture",
+  title: "CodeScouts library",
+  tagline: "Aprende a implementar Clean architecture con nuestra librería",
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
@@ -19,7 +19,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "CodeScouts", // Usually your GitHub org/user name.
-  projectName: "Clean Architecture libraries", // Usually your repo name.
+  projectName: "Clean Architecture library", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -66,7 +66,7 @@ const config = {
       navbar: {
         title: "Inicio",
         logo: {
-          alt: "CodeScouts Libraries",
+          alt: "CodeScouts library",
           src: "img/logo.png",
         },
         items: [
@@ -75,6 +75,11 @@ const config = {
             sidebarId: "tutorialSidebar",
             position: "left",
             label: "Architecture",
+          },
+          {
+            href: "https://www.codescouts.academy",
+            label: "CodeScouts",
+            position: "right",
           },
           {
             href: "https://github.com/codescouts-academy/clean-architecture-libraries",
@@ -87,7 +92,7 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Documentación",
             items: [
               {
                 label: "Architecture",
@@ -96,7 +101,7 @@ const config = {
             ],
           },
           {
-            title: "Community",
+            title: "Comunidad",
             items: [
               {
                 label: "Github",
@@ -113,20 +118,20 @@ const config = {
             ],
           },
           {
-            title: "More",
+            title: "Más",
             items: [
               {
-                label: "Blog",
-                to: "https://www.codescouts.academy/blog",
+                label: "Web",
+                href: "https://www.codescouts.academy",
               },
               {
-                label: "GitHub",
-                href: "https://github.com/codescouts-academy",
+                label: "Blog",
+                href: "https://www.codescouts.academy/blog",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} CodeScouts academy. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} CodeScouts academy - Built with Docusaurus`,
       },
       prism: {
         theme: lightCodeTheme,
