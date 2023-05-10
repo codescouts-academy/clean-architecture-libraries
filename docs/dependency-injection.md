@@ -17,6 +17,9 @@ npm i --save @codescouts/ui
 ## Dependencias
 
 -   [**ts-injecty**](https://github.com/damianpumar/ts-injecty)
+-   [**React**](https://github.com/facebook/react)
+
+Si quieres implementar esta librería sin React, puedes usar ts-injecty
 
 ### Implementación en React
 
@@ -24,7 +27,8 @@ Tendrás que envolver tus componentes con el **HOC** **DependencyInjectionContai
 
 ```ts showLineNumbers
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useEvents, DependencyInjectionContainer } from "@codescouts/ui";
+import { useEvents } from "@codescouts/ui";
+import { DependencyInjectionContainer } from "@codescouts/di";
 
 import { NewLogRegisteredHandler } from "@domain/events";
 
