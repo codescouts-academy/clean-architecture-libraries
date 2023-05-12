@@ -11,7 +11,7 @@ Esta librería te permitirá montar un contenedor de inyección de dependencias.
 ### Instalación
 
 ```bash
-npm i --save @codescouts/ui
+npm i --save @codescouts/di
 ```
 
 ## Dependencias
@@ -19,7 +19,11 @@ npm i --save @codescouts/ui
 -   [**ts-injecty**](https://github.com/damianpumar/ts-injecty)
 -   [**React**](https://github.com/facebook/react)
 
-Si quieres implementar esta librería sin React, puedes usar ts-injecty
+Si quieres implementar esta librería sin React, puedes usar 👇
+
+```bash
+npm i ts-injecty --save
+```
 
 ### Implementación en React
 
