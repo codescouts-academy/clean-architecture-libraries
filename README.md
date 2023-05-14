@@ -38,10 +38,16 @@ npm i --save @codescouts/svelte-store
 npm i --save @codescouts/event
 ```
 
-### 🤘 UI package (Dependency injection, events and more) for React ⚛️
+### 🤘 UI package (Resources, Permissions, Events) for React ⚛️
 
 ```sh
 npm i --save @codescouts/ui
+```
+
+### 💉 Dependency injection for React ⚛️
+
+```sh
+npm i --save @codescouts/di
 ```
 
 ### 🧪 Test library (Unit and Integration)
