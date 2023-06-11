@@ -58,8 +58,14 @@ npm i --save-dev @codescouts/test
 
 ## 📃 Starter kit template
 
+If you are using create-react-app 👇
 ```sh
 npx create-react-app my-app --template @codescouts/clean-architecture-template
+```
+
+If you want to use Vite 👇
+```sh
+npx degit codescouts-academy/react-clean-architecture my-app
 ```
 
 ## 👩‍💻 Project explanation
