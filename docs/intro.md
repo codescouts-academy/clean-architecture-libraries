@@ -27,14 +27,42 @@ Para poder implementar nuestra librería tienes dos opciones.
 
 ### Crea una nueva web con (React)
 
+1.  Install from template
+
 ```bash
-npm create vite@latest my-app -- --template react-ts
+npx degit codescouts-academy/react-clean-architecture my-app
+```
+
+2.  Install dependencies
+
+```bash
+npm i
+```
+
+3.  Start app
+
+```bash
+npm run dev
 ```
 
 ### Utiliza nuestro template (Create react app)
 
+1.  Install from template
+
 ```bash
 npx create-react-app my-app --template @codescouts/clean-architecture-template
+```
+
+2.  Install dependencies
+
+```bash
+npm i
+```
+
+3.  Start app
+
+```bash
+npm start
 ```
 
 Si utilizas nuestro template verás algo así 👇
