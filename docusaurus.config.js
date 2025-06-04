@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "CodeScouts library",
-  tagline: "Aprende a implementar Clean architecture con nuestra librería",
+  tagline: "Learn to implement Clean Architecture with our library",
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
