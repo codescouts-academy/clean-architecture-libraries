@@ -5,28 +5,28 @@
 </p>
 
 <h1 align="center">
- 📄 Documentación para implementar las librerías de CodeScouts para el Frontend 🚀
+ 📄 Documentation for implementing CodeScouts libraries for Frontend 🚀
 </h1>
 
 <p align="center">
-  Documentación 📄
+  Documentation 📄
   <br />
   <br />
   <a href="https://github.com/codescouts-academy/clean-architecture-libraries/stargazers">Stars are welcome 😊</a>
-  <a href="https://github.com/codescouts-academy/clean-architecture-libraries/issues">Report an error 🐛</a>
+  <a href="https://github.com/codescouts-academy/clean-architecture-libraries/issues">Report an issue 🐛</a>
 </p>
 
 ## 🚀 Libraries
 
 ### 🧑‍🚀 Reactive store
 
-For react ⚛️
+For React ⚛️
 
 ```sh
 npm i --save @codescouts/store
 ```
 
-For svelte 🔝
+For Svelte 🔝
 
 ```sh
 npm i --save @codescouts/svelte-store
@@ -59,11 +59,13 @@ npm i --save-dev @codescouts/test
 ## 📃 Starter kit template
 
 If you are using create-react-app 👇
+
 ```sh
 npx create-react-app my-app --template @codescouts/clean-architecture-template
 ```
 
 If you want to use Vite 👇
+
 ```sh
 npx degit codescouts-academy/react-clean-architecture my-app
 ```
@@ -108,5 +110,5 @@ npx degit codescouts-academy/react-clean-architecture my-app
 
 ## 🤔 Contributing
 
-Si encuentras algún error, crees que hay cosas por mejorar o simplemente quieres contribuir, eres bienvenido/a.
-Solo realiza un fork y envíanos tu PR 🙏.
+If you find any errors, think there is room for improvement or simply want to contribute, you are welcome.
+Just fork and send us your PR 🙏.
