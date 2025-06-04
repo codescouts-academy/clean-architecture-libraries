@@ -10,38 +10,36 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Aprende con un technical coach",
+    title: "Learn with a Technical Coach",
     image: require("@site/static/img/learn-with-tech-coach.png").default,
     description: (
       <>
-        Somos <b>desarrolladores de software expertos</b> que ayudamos a equipos
-        a ser los mejores, transmitimos todos los conocimientos necesarios para
-        que mejoren técnicamente.
+        We are <b>expert software developers</b> who help teams become the best
+        by transferring all the necessary knowledge to improve technically.
         <br />
-        <b>Somos Technical Coaches</b>
+        <b>We are Technical Coaches</b>
       </>
     ),
   },
   {
-    title: "Aprende en comunidad",
+    title: "Learn in Community",
     image: require("@site/static/img/learn-together.png").default,
     description: (
       <>
-        En CodeScouts creemos que el aprendizaje colectivo es el mejor camino
-        para crecer como <b>profesionales</b>. Por eso trabajamos en equipo, te
-        invitamos a que pueda formar parte de nuestra comunidad.
+        At CodeScouts, we believe collective learning is the best way to grow as{" "}
+        <b>professionals</b>. That’s why we work as a team and invite you to be
+        part of our community.
       </>
     ),
   },
   {
-    title: "Escala hasta la cima",
+    title: "Climb to the Top",
     image: require("@site/static/img/climb-to-the-top.png").default,
     description: (
       <>
-        En CodeScouts ayudamos a los equipos de software a aumentar la velocidad
-        de entrega y la calidad del software, formándoles en las prácticas de
-        <b> Extreme Programming </b>y la los principios de
-        <b> Software Craftsmanship</b>
+        At CodeScouts, we help software teams increase delivery speed and
+        software quality by training them in <b>Extreme Programming</b>{" "}
+        practices and the principles of <b>Software Craftsmanship</b>.
       </>
     ),
   },

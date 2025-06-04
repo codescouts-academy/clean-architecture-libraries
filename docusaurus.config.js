@@ -67,7 +67,7 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "Inicio",
+        title: "Home",
         logo: {
           alt: "CodeScouts library",
           src: "img/logo.png",
@@ -104,7 +104,7 @@ const config = {
             ],
           },
           {
-            title: "Comunidad",
+            title: "Community",
             items: [
               {
                 label: "Github",
@@ -121,7 +121,7 @@ const config = {
             ],
           },
           {
-            title: "Más",
+            title: "More",
             items: [
               {
                 label: "Web",
@@ -134,7 +134,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} CodeScouts academy - Built with Docusaurus`,
+        copyright: `Copyright © ${new Date().getFullYear()} CodeScouts academy`,
       },
       prism: {
         theme: lightCodeTheme,

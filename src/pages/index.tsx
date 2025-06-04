@@ -19,7 +19,7 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/docs/intro"
           >
-            Aprende a usar nuestra librería - 5min ⏱️
+            Learn how to use our library - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -30,8 +30,8 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   return (
     <Layout
-      title="Inicio"
-      description="Ayudamos a los equipos de desarrollo de software a alcanzar la excelencia técnica, enfocándonos tanto en la calidad y velocidad de entrega del software como en la mejora y ritmo sostenible del equipo"
+      title="Home"
+      description="We help software development teams achieve technical excellence, focusing both on software delivery quality and speed, as well as on improving and sustaining team pace."
     >
       <HomepageHeader />
       <main>
