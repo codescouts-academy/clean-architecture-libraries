@@ -4,30 +4,30 @@ sidebar_position: 4
 
 # Dependency injection
 
-## Utilidad
+## Utility
 
-Esta librería te permitirá montar un contenedor de inyección de dependencias.
+This library allows you to set up a dependency injection container.
 
-### Instalación
+### Installation
 
 ```bash
 npm i --save @codescouts/di
 ```
 
-## Dependencias
+## Dependencies
 
--   [**ts-injecty**](https://github.com/damianpumar/ts-injecty)
--   [**React**](https://github.com/facebook/react)
+- [**ts-injecty**](https://github.com/damianpumar/ts-injecty)
+- [**React**](https://github.com/facebook/react)
 
-Si quieres implementar esta librería sin React, puedes usar 👇
+If you want to implement this library without React, you can use 👇
 
 ```bash
 npm i ts-injecty --save
 ```
 
-### Implementación en React
+### React Implementation
 
-Tendrás que envolver tus componentes con el **HOC** **DependencyInjectionContainer** y de esta manera el contenedor estará a tu disposición cuando lo necesitas utilizando el hook **useResolve**
+You will need to wrap your components with the **HOC** **DependencyInjectionContainer**, and in this way, the container will be available whenever you need it by using the **useResolve** hook.
 
 ```ts showLineNumbers
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -49,7 +49,7 @@ const App = () => {
   return (
     // highlight-start
     <DependencyInjectionContainer builder={buildDependencies}>
-    // highlight-end
+      // highlight-end
       <BrowserRouter>
         <div className="app">
           <Header />
@@ -63,10 +63,9 @@ const App = () => {
 };
 
 export default App;
-
 ```
 
-Tu función **buildDependencies** puede ser algo así
+Your **buildDependencies** function can look like this:
 
 ```ts showLineNumbers
 import { register } from "ts-injecty";
@@ -76,22 +75,29 @@ import { TestUseCase } from "./application/test-use-case";
 import { useLogger } from "./infrastructure/services/LoggerService";
 
 export const buildDependencies = (builder: typeof register) => {
-    return [
-        builder(useLogger.name).withDynamicValue(() => useLogger()).build(),
-        builder(useEventDispatcher.name).withDynamicValue(() => useEventDispatcher()).build(),
-        builder(TestUseCase).withDependency(useLogger.name).and(useEventDispatcher.name).build(),
-    ];
-}
+  return [
+    builder(useLogger.name)
+      .withDynamicValue(() => useLogger())
+      .build(),
+    builder(useEventDispatcher.name)
+      .withDynamicValue(() => useEventDispatcher())
+      .build(),
+    builder(TestUseCase)
+      .withDependency(useLogger.name)
+      .and(useEventDispatcher.name)
+      .build(),
+  ];
+};
 ```
 
-y ahora cuando necesites resolver por ejemplo el caso de uso **TestUseCase** debes hacerlo así
+And now, whenever you need to resolve, for example, the **TestUseCase**, you do it like this:
 
 ```ts showLineNumbers
 import { useResolve } from "@codescouts/ui";
 
 import { TestUseCase } from "@application/test-use-case";
 
-export const Foo = ()=> {
+export const Foo = () => {
   const testUseCase = useResolve(TestUseCase);
-}
+};
 ```

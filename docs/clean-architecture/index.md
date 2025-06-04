@@ -1,85 +1,85 @@
 # Clean Architecture
 
-La capas no es un concepto novedoso. Ha existido en la industria durante más de un par de años (algunos de ustedes que leen este documento son probablemente más jóvenes que las capas) y es uno de los primeros estilos arquitectónicos creados. En resumen, las capas no son más que dividir las responsabilidades de su aplicación en diferentes capas, donde las capas superiores pueden hablar con las capas inferiores, pero no al revés.
+Layers are not a novel concept. They have existed in the industry for more than a couple of decades (some of you reading this document are probably younger than layers) and are one of the first architectural styles created. In short, layers are simply dividing the responsibilities of your application into different layers, where upper layers can talk to lower layers, but not vice versa.
 
-Las capas interactúan a través de fachadas, por lo que una capa no tiene que saber nada sobre los detalles de implementación interna de otras capas.
+Layers interact through facades, so a layer does not have to know anything about the internal implementation details of other layers.
 
-Traducir esto en una aplicación React, lo que haremos es tener una capa de UI donde vivirán los componentes con la reactividad propia de React, donde escribiremos componentes de react con _nada_ de lógica de negocio. Detras de esta capa tendremos una capa de aplicación donde modelaremos los casos de uso de la aplicación, aquí comenzaremos a interactuar con nuestra lógica de negocio, y por último tendremos nuestra capa de dominio, donde aquí estará lo más importante de nuestra aplicación, porque esta capa _no_ deberá tener ningún tipo de dependencias externas.
+Translating this into a React application, what we will do is have a UI layer where components with React's reactivity live, where we write React components with _no_ business logic. Behind this layer, we will have an application layer where we will model the use cases of the application; here we begin to interact with our business logic, and finally, we will have our domain layer, where the most important part of our application lives, because this layer _must not_ have any kind of external dependencies.
 
-Para una pequeña aplicación, tal vez tener una capa de ui y otra de domino o view model alcanzará, y probablemente es cómo hemos estado escribiendo aplicaciones React durante mucho tiempo. Pero a medida que crecen las aplicaciones, estas capas siguen siendo más gruesas y comienzan a hacer demasiado, lo que hace que sean más difíciles de razonar.
+For a small application, perhaps having a UI layer and another domain or view model layer will suffice, and probably this is how we have been writing React applications for a long time. But as applications grow, these layers get thicker and start to do too much, making them harder to reason about.
 
-Antes de continuar, me gustaría hablar un poco acerca de los beneficios de separar en capas nuestro proyecto.
+Before continuing, I would like to talk a bit about the benefits of separating our project into layers.
 
-### **Facilidad de razonamiento**
+### **Ease of reasoning**
 
-Divide y conquista: la mejor manera de resolver un gran problema es dividirlo en problemas más pequeños que son más fáciles de resolver. Podemos razonar sobre una capa de forma independiente sin preocuparnos por la implementación de otras capas.
+Divide and conquer: the best way to solve a big problem is to divide it into smaller problems that are easier to solve. We can reason about one layer independently without worrying about the implementation of other layers.
 
-### **Sustitución**
+### **Substitution**
 
-Las capas se pueden sustituir fácilmente con implementaciones alternativas. No es como si estuviéramos cambiando nuestra biblioteca HTTP todos los días, pero cuando llega el momento, el cambio se autónomo dentro de una capa y nunca debe filtrarse fuera de los límites de la capa. La refactorización se vuelve más fácil y menos intrusiva.
+Layers can be easily substituted with alternative implementations. It’s not like we change our HTTP library every day, but when the time comes, the change is autonomous within one layer and should never leak outside the boundaries of the layer. Refactoring becomes easier and less intrusive.
 
-### **Evolución**
+### **Evolution**
 
-Las arquitecturas que escala deben tener la capacidad de evolucionar a medida que el software madura y los requisitos cambian. Aunque nos gusta hacer algo de diseño por adelantado, hay cosas que solo aparecerán después de que comience el desarrollo. Al usar capas, podemos retrasar las decisiones sobre los detalles de implementación hasta que tengamos suficiente información para tomar una decisión sensata.
+Architectures that scale must have the ability to evolve as software matures and requirements change. Although we like to do some design upfront, there are things that only appear after development starts. By using layers, we can delay decisions about implementation details until we have enough information to make a sensible decision.
 
-### **Desacoplamiento**
+### **Decoupling**
 
-Las dependencias entre capas se controlan ya que son unidireccional. Apuntar a un bajo acoplamiento (mientras se mantiene una alta cohesión) es una buena manera de evitar que nuestra aplicación se convierta en una gran bola de barro.
+Dependencies between layers are controlled as they are unidirectional. Aiming for low coupling (while maintaining high cohesion) is a good way to prevent our application from becoming a big ball of mud.
 
 ### **Testability**
 
-Tener una arquitectura en capas permite probar cada componente de forma aislada y fácil. Aunque esto es bueno, en mi opinión no es el mayor beneficio en términos de prueba. Para mí, el mayor beneficio de las arquitecturas en capas es que es más fácil escribir pruebas mientras trabajas en el código. Dado que cada capa debe tener una responsabilidad bien definida, es más fácil pensar en lo que vale la pena probar durante la implementación.
+Having a layered architecture allows you to test each component in isolation and easily. Although this is good, in my opinion it’s not the biggest benefit in terms of testing. For me, the biggest benefit of layered architectures is that it is easier to write tests while working on the code. Since each layer must have a well-defined responsibility, it’s easier to think about what’s worth testing during implementation.
 
-Todas las cosas mencionadas anteriormente nos ayudan a escribir un código que es más fácil de mantener. Una base de código mantenible nos hace más productivos, ya que pasamos menos tiempo luchando contra la deuda técnica y más tiempo trabajando en nuevas características. También reduce el riesgo al introducir cambios. Por último, pero no menos importante, hace que nuestro código sea más fácil de probar, lo que en última instancia nos da más confianza durante el desarrollo y la refactorización.
+All the above helps us write code that is easier to maintain. A maintainable codebase makes us more productive, as we spend less time fighting technical debt and more time working on new features. It also reduces the risk when introducing changes. Last but not least, it makes our code easier to test, which ultimately gives us more confidence during development and refactoring.
 
-Ahora que conocemos los beneficios de las capas y las arquitecturas en capas, hablemos sobre qué tipo de arquitectura en capas estamos proponiendo para una gran aplicación React.
+Now that we know the benefits of layers and layered architectures, let’s talk about what kind of layered architecture we are proposing for a large React application.
 
 # **CLEAN architecture**
 
 ![Untitled](layers-diagram.png)
 
-La arquitectura limpia es un tipo de arquitectura en capas compuesta por varias ideas de otras arquitecturas en capas, como arquitectura de cebolla, arquitectura hexagonal y arquitectura de puertos y adaptadores, entre otros.
+Clean architecture is a type of layered architecture composed of several ideas from other layered architectures, such as onion architecture, hexagonal architecture, and ports and adapters architecture, among others.
 
-La idea central detrás de Clean es poner el negocio y las entidades de negocio en el centro de nuestra aplicación. Las capas externas son menos específicas para el negocio, mientras que las capas internas tienen que ver con el negocio.
+The core idea behind Clean is to put the business and business entities at the centre of our application. The outer layers are less business-specific, while the inner layers deal with business.
 
-Describiremos brevemente lo que cada capa hace en arquitectura limpia, para comprender cómo podemos aprovechar algunos de estos conceptos en nuestras aplicaciones React.
+We will briefly describe what each layer does in clean architecture to understand how we can leverage some of these concepts in our React applications.
 
-Pero antes me gustaría comentar el tipo de relación que habrá entre la vista y los uses cases; Para ello nos basaremos en la estructura MVVM Model-View-ViewModel.
+But first, I would like to comment on the type of relationship that will exist between the view and the use cases; for this, we will base ourselves on the MVVM Model-View-ViewModel structure.
 
-Esta estructura es muy facil de entender, La vista simplemente se encarga de presentar la información resibida por el ViewModel, El ViewModel es el principal responsable de definir la lógica de presentación y el manejo del estado interno de esta vista, y dialogar con el Modelo, donde allí se encontrará la lógica de negocio.
+This structure is very easy to understand. The view simply takes care of presenting the information received from the ViewModel. The ViewModel is primarily responsible for defining the presentation logic and managing the internal state of this view, and for interacting with the Model, where the business logic resides.
 
 ![Untitled](mvvm.jpg)
 
-Arquitectura limpia, un diagrama
+Clean architecture, a diagram
 
 ![Untitled](clean-architecture.jpg)
 
 ### **Entities**
 
-En el centro del diagrama tenemos entidades.En la arquitectura limpia clásica, las entidades son una media de contener el estado relacionado con las reglas de negocio. Las entidades deben ser estructuras de datos simples y no tener conocimiento de nuestro framework o librería de UI.
+At the centre of the diagram, we have entities. In classic clean architecture, entities are a means of containing the state related to business rules. Entities should be simple data structures and have no knowledge of our UI framework or library.
 
-Para una aplicación frontend, aquí es donde tenemos la lógica relacionada con las entidades de nuestro sistema.
+For a frontend application, this is where we have the logic related to the entities of our system.
 
 ### **Use Cases**
 
-Los casos de uso están cerca de las historias de usuarios en terminología ágil. Aquí es donde viven las reglas del negocio de la aplicación. Un caso de uso debe representar algo que un usuario quiere lograr. Los casos de uso deben tener todo el código para que eso suceda de una manera que tenga sentido para la aplicación. Observe que los casos de uso solo pueden depender de las capas internas, por lo que para que las cosas ocurran dentro de un caso de uso (digamos que haga una solicitud HTTP) tenemos que inyectar dependencias en nuestro caso de uso y aplicar _inversión de control_.
+Use cases are close to user stories in agile terminology. This is where the business rules of the application live. A use case should represent something a user wants to achieve. Use cases should have all the code to make that happen in a way that makes sense for the application. Note that use cases can only depend on inner layers, so for things to happen inside a use case (say, making an HTTP request), we must inject dependencies into our use case and apply _inversion of control_.
 
 ### **Controllers / Presenters / Gateways**
 
-Esta capa contiene código de nuestro framework o librería que implementa los casos de uso. Por lo general, la capa de UI llamaría los métodos expuestos por los controladores o presentadores.
+This layer contains code from our framework or library that implements the use cases. Generally, the UI layer would call the methods exposed by the controllers or presenters.
 
 ### **Framework & Drivers**
 
-La capa más externa es donde están contenidas todas las operaciones de IO. Entrada del usuario, conexiones HTTP, lectura de un almacenamiento web, etc. Aquí es donde vive nuestro framework de la interfaz de usuario.
+The outermost layer is where all the IO operations live. User input, HTTP connections, reading from web storage, etc. This is where our UI framework lives.
 
-Vale la pena señalar que, como cualquier otra arquitectura en capas, podemos agregar tantas capas como sea necesario. Aunque cuanto más simple, mejor!.
+It’s worth noting that, like any other layered architecture, we can add as many layers as needed. Although the simpler, the better!
 
 ## **References**
 
--   Martin Fowler -- Catalog of Patterns of Enterprise Application Architecture<https://martinfowler.com/eaaCatalog/domainModel.html>
--   Denis Brandi -- Why you need use cases interactors<https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576>
--   Bob Martin -- The Clean Architecture<https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html>
--   Daniel Mackay -- Clean Architecture, an introduction<https://www.dandoescode.com/blog/clean-architecture-an-introduction/>
--   CodingWithMitch -- 2 Key Concepts of Clean Architecture<https://www.youtube.com/watch?v=NyJLw3sc17M>
--   Frank Bos and Fouad Astitou -- Fuck CLEAN Architecture<https://www.youtube.com/watch?v=zkmcy9WQqUE>
--   Ian Cooper, The Clean Architecture<https://www.youtube.com/watch?v=SxJPQ5qXisw>
+-   Martin Fowler -- Catalog of Patterns of Enterprise Application Architecture <https://martinfowler.com/eaaCatalog/domainModel.html>
+-   Denis Brandi -- Why you need use cases interactors <https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576>
+-   Bob Martin -- The Clean Architecture <https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html>
+-   Daniel Mackay -- Clean Architecture, an introduction <https://www.dandoescode.com/blog/clean-architecture-an-introduction/>
+-   CodingWithMitch -- 2 Key Concepts of Clean Architecture <https://www.youtube.com/watch?v=NyJLw3sc17M>
+-   Frank Bos and Fouad Astitou -- Fuck CLEAN Architecture <https://www.youtube.com/watch?v=zkmcy9WQqUE>
+-   Ian Cooper, The Clean Architecture <https://www.youtube.com/watch?v=SxJPQ5qXisw>

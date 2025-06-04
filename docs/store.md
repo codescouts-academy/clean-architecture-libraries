@@ -2,40 +2,40 @@
 sidebar_position: 2
 ---
 
-# Store Reactivo
+# Reactive Store
 
-## Utilidad
+## Utility
 
-Esta librería nos permitirá actualizar los objetos de dominio desde nuestra **Capa de aplicación** implementando interfaces de nuestros Domain services
+This library allows us to update domain objects from our **Application Layer** by implementing interfaces of our Domain Services.
 
-## Instalación
+## Installation
 
-Este store puedes instalarlo de la siguiente forma:
+You can install this store as follows:
 
 ```bash
 npm i --save @codescouts/store
 ```
 
-## Dependencias
+## Dependencies
 
--   [**Zustand**](https://github.com/pmndrs/zustand)
--   [**React**](https://reactjs.org/)
+- [**Zustand**](https://github.com/pmndrs/zustand)
+- [**React**](https://reactjs.org/)
 
-## Actualizar nuestra UI desde una capa de aplicación
+## Updating our UI from an application layer
 
-Partiremos del ejemplo que plantea el template que construimos 👇
+We’ll start with the example provided by the template we’ve built 👇
 
 ```bash
 npx create-react-app my-app --template @codescouts/clean-architecture-template
 ```
 
-Partiendo de este ejemplo tenemos un caso de uso en la **Capa de aplicación** que agrega un log, y posteriormente necesitamos actualizar la UI para que el usuario vea los logs que se van agregando, ¿Cierto?.
+Using this example, we have a use case in the **Application Layer** that adds a log, and subsequently, we need to update the UI so the user can see the logs being added, right?
 
-Cuando invocamos el **execute** del caso de uso, podremos utilizar objetos de dominio, pero de vez en cuando, nos interesará actualizar tu UI.
+When we invoke the **execute** method of the use case, we’ll be able to utilise domain objects, but occasionally, we’ll also want to update the UI.
 
-Si inyectamos un **DomainService** utilizando nuestra librería, no solo podremos acceder a los objetos allí guardados, sino que cada vez que lo actualicemos, también lo hará la UI.
+If we inject a **DomainService** using our library, we can not only access the objects stored within but also update the UI whenever they are modified.
 
-### Nuestro caso de uso
+### Our use case
 
 ```ts showLineNumbers
 import { IEventDispatcher } from "@codescouts/events";
@@ -44,32 +44,30 @@ import { Log } from "@domain/model/Log";
 import { LoggerService } from "@domain/services/LoggerService";
 
 export class TestUseCase {
-    constructor(private readonly loggerService: LoggerService) {
+  constructor(private readonly loggerService: LoggerService) {}
 
-    }
+  public execute(message: string) {
+    const log = new Log(message);
 
-    public execute(message: string) {
-        const log = new Log(message);
-
-        this.loggerService.update(log);
-    }
+    this.loggerService.update(log);
+  }
 }
 ```
 
-### Nuestro Domain Service
+### Our Domain Service
 
 ```ts showLineNumbers
 import { Log } from "../model/Log";
 
 export interface LoggerService {
-    logs: Log[],
-    save: (log: Log) => void;
+  logs: Log[];
+  save: (log: Log) => void;
 }
 ```
 
-### Nuestro Componente React
+### Our React Component
 
-Veamos el siguiente componente de UI que mostrará los logs
+Let’s look at the following UI component that displays the logs.
 
 ```ts showLineNumbers
 import styles from "./Logs.module.css";
@@ -96,38 +94,37 @@ export const Logs = () => {
           Add Log
         </button>
       </div>
-//highlight-start
+      //highlight-start
       <ul>
         {logs.map((log) => (
           <li key={log.when}>{log.format()}</li>
         ))}
       </ul>
-//highlight-end
+      //highlight-end
     </div>
   );
 };
-
 ```
 
-:::note nota
-Como puedes observar en la línea 27, estamos utilizando la instancia de la clase Log. Veamos su implementación:
+:::note note
+As you can see on line 27, we are using the instance of the Log class. Let’s look at its implementation:
 :::
 
 ```ts showLineNumbers
 export class Log {
-    public readonly when: number;
+  public readonly when: number;
 
-    constructor(public readonly message: string) {
-        this.when = new Date().getTime()
-    }
+  constructor(public readonly message: string) {
+    this.when = new Date().getTime();
+  }
 
-    public format() {
-        return `${this.message} - ${new Date(this.when).toDateString()}`;
-    }
+  public format() {
+    return `${this.message} - ${new Date(this.when).toDateString()}`;
+  }
 }
 ```
 
-Si recordamos lo que plantea esta arquitectura aquí [**Clean architecture**](./clean-architecture), veremos que utilizamos un **ViewModel** como componente que desacopla la UI de su comportamiento. Y será algo así 👇
+Referring back to the architecture outlined here [**Clean architecture**](./clean-architecture), we can see we use a **ViewModel** as a component to decouple the UI from its behaviour. It looks something like this 👇
 
 ```ts showLineNumbers
 import { useCallback, useRef } from "react";
@@ -136,25 +133,25 @@ import { TestUseCase } from "@application/test-use-case";
 import { useLogger } from "@infrastructure/services";
 
 export const useHomeViewModel = () => {
-    const input = useRef<HTMLInputElement>(null);
-    //highlight-start
-    const loggerService = useLogger();
-    const testUseCase = new TestUseCase(loggerService);
-    //highlight-end
+  const input = useRef<HTMLInputElement>(null);
+  //highlight-start
+  const loggerService = useLogger();
+  const testUseCase = new TestUseCase(loggerService);
+  //highlight-end
 
-    const test = useCallback(() => {
-        if (!input.current!.value) return;
+  const test = useCallback(() => {
+    if (!input.current!.value) return;
 
-        testUseCase.execute(input.current!.value);
-    }, [testUseCase])
+    testUseCase.execute(input.current!.value);
+  }, [testUseCase]);
 
-    return { logs, test, input }
-}
+  return { logs, test, input };
+};
 ```
 
-Ahora, y como implementaríamos el **useLogger** como implementación de nuestro **DomainService**, veamoslo 👇
+Now, how would we implement **useLogger** as an implementation of our **DomainService**? Let’s take a look 👇
 
-### Implementación de Domain Service
+### Domain Service Implementation
 
 ```ts showLineNumbers
 import { create } from "@codescouts/store";
@@ -163,68 +160,67 @@ import { Log } from "@domain/model";
 import { LoggerService } from "@domain/services";
 
 export const useLogger = create<LoggerService>((set) => ({
-    logs: [],
-    save: (log: Log) => set((state) => ({ logs: [...state.logs, log] }))
-})).withPersist(Log)
-   .build();
+  logs: [],
+  save: (log: Log) => set((state) => ({ logs: [...state.logs, log] })),
+}))
+  .withPersist(Log)
+  .build();
 ```
 
-Como vemos aquí, este store, recibe en su **Generic** el objeto que quieres implementar, y al construirlo recibe un setter, este mismo permitirá actualizar el objeto.
+As shown here, this store takes the object you want to implement in its **Generic**, and when constructing it, it receives a setter. This setter allows you to update the object.
 
-## Persistir el store
+## Persisting the store
 
-Nuestra librería soporta el guardado y la restauración de los objetos de dominio incluso cuando el usuario refresca el navegador.
+Our library supports saving and restoring domain objects even when the user refreshes the browser.
 
-Para ello, lo que tienes que hacer es utilizar el método **withPersist** y pasarle como argumento la referencia de tu objeto.
+To do this, you must use the **withPersist** method and pass your object reference as an argument.
 
-Si deseas guardar tus objetos en **localstorage** para restaurar los objetos, debes invocar la funcion withPersist, y como argumento referenciar tu clase.
+If you wish to save your objects in **localstorage** to restore them later, invoke the **withPersist** function and reference your class as an argument.
 
 ```ts showLineNumbers
 export const useLogger = create<LoggerService>((set) => ({
-    logs: [],
-    save: (log: Log) => set((state) => ({ logs: [...state.logs, log] }))
+  logs: [],
+  save: (log: Log) => set((state) => ({ logs: [...state.logs, log] })),
 }))
-//highlight-start
-   .withPersist(Log)
-//highlight-end
-   .build();
+  //highlight-start
+  .withPersist(Log)
+  //highlight-end
+  .build();
 ```
 
-:::note nota
-Nuestro store se encargará de instanciar nuevamente la clase y todas sus relaciones, para que puedas disponer de todo su comportamiento nuevamente.
+:::note note
+Our store will reinstantiate the class and all its relationships, so you can fully utilise its behaviour again.
 :::
 
-### Restaurar el estado
+### Restoring state
 
 ```ts showLineNumbers
 class Foo {
   inner: Bar;
 
-  public constructor(){
-    this.inner = new Bar()
+  public constructor() {
+    this.inner = new Bar();
   }
 
-  foo() {
-
-  }
+  foo() {}
 }
 ```
 
-Nuestro **store** es capaz de no solo restaurar la instancia de la clase **Foo** sino también restaurará la instancia de la clase **Bar**.
+Our **store** can not only restore the instance of the **Foo** class but will also restore the instance of the **Bar** class.
 
-Al finalizar debes ejecutar el build, para que cree el estado según tu configuración.
+Finally, you need to execute the build method to create the state according to your configuration.
 
-Tambien tienes disponible este store para Svelte, mantiene tambien la misma api.
+This store is also available for Svelte, maintaining the same API.
 
 ```bash
 npm i --save @codescouts/svelte-store
 ```
 
-## Instanciar el caso de uso con Inyección de Dependencias
+## Instantiating the use case with Dependency Injection
 
-Puedes ver la documentación aquí: [**¿Cómo inyectar las dependencias?**](./dependency-injection)
+You can find the documentation here: [**How to inject dependencies?**](./dependency-injection)
 
-Una vez que configures el inyector de dependencias, será así
+Once you configure the dependency injector, it will look like this:
 
 ```ts showLineNumbers
 import { useCallback, useRef } from "react";
@@ -234,21 +230,21 @@ import { TestUseCase } from "@application/test-use-case";
 import { useLogger } from "@infrastructure/services";
 
 export const useHomeViewModel = () => {
-    const input = useRef<HTMLInputElement>(null);
-    const { logs } = useLogger();
-    //highlight-start
-    const testUseCase = useResolve(TestUseCase);
-    //highlight-end
+  const input = useRef<HTMLInputElement>(null);
+  const { logs } = useLogger();
+  //highlight-start
+  const testUseCase = useResolve(TestUseCase);
+  //highlight-end
 
-    const test = useCallback(() => {
-        if (!input.current!.value) return;
+  const test = useCallback(() => {
+    if (!input.current!.value) return;
 
-        testUseCase.execute(input.current!.value);
+    testUseCase.execute(input.current!.value);
 
-        input.current!.value = "";
-        input.current!.focus();
-    }, [testUseCase])
+    input.current!.value = "";
+    input.current!.focus();
+  }, [testUseCase]);
 
-    return { logs, test, input }
-}
+  return { logs, test, input };
+};
 ```

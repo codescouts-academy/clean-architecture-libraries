@@ -4,24 +4,24 @@ sidebar_position: 3
 
 # Domain events
 
-## Utilidad
+## Utility
 
-Para poder utilizar eventos de dominio en esta arquitectura debes instalar nuestro paquete que permitirá hacer **dispatch** de los eventos que vayan ocurriendo en la aplicación.
-El uso de eventos de dominio es una excelente estrategia para desacoplar acciones que deben ejecutarse ante un determinado evento en nuestra aplicación.
+To use domain events in this architecture, you must install our package that will allow you to **dispatch** the events occurring in the application.
+Using domain events is an excellent strategy to decouple actions that must be executed in response to a specific event in our application.
 
-### Instalación
+### Installation
 
 ```bash
 npm i --save @codescouts/events
 ```
 
-## Dependencias
+## Dependencies
 
--   No tiene
+- None
 
-Ahora lo que deberás hacer es inyectarlo como dependencia en tus casos de uso para poder hacer el **dispatch** cuando lo deseeas
+Now, you should inject it as a dependency in your use cases to be able to **dispatch** whenever you want.
 
-### Ejemplo de dispatch
+### Dispatch example
 
 ```ts showLineNumbers
 import { IEventDispatcher } from "@codescouts/events";
@@ -30,22 +30,20 @@ import { Log } from "@domain/model/Log";
 import { NewLogRegistered } from "@domain/events/NewLogRegistered";
 
 export class TestUseCase {
-    constructor(private readonly dispatcher: IEventDispatcher) {
+  constructor(private readonly dispatcher: IEventDispatcher) {}
 
-    }
+  public execute(message: string) {
+    const log = new Log(message);
 
-    public execute(message: string) {
-        const log = new Log(message);
-
-        this.dispatcher.dispatch(new NewLogRegistered(log));
-    }
+    this.dispatcher.dispatch(new NewLogRegistered(log));
+  }
 }
 ```
 
-La dependencia de esta **interface** dependerá de la aplicación que utilices.
-Pero si hablamos concretamente de **React** podrás utilizar nuestro paquete de UI, que tiene una implementación utilizando Hooks que te permitirá usarlos.
+The implementation of this **interface** depends on the application you use.
+Specifically, if you use **React**, you can use our UI package, which has an implementation using Hooks that will allow you to use them.
 
-### Ejemplo del evento
+### Event example
 
 ```ts showLineNumbers
 import { DomainEvent } from "@codescouts/events";
@@ -58,7 +56,7 @@ export class NewLogRegistered extends DomainEvent {
 }
 ```
 
-### Ejemplo del handler
+### Handler example
 
 ```ts showLineNumbers
 import { Handler } from "@codescouts/events";
@@ -77,31 +75,30 @@ export class NewLogRegisteredHandler extends Handler<NewLogRegistered> {
     }, 1000);
   }
 }
-
 ```
 
-### Implementación en React
+### React Implementation
 
-Primero debes instalar nuestro paquete de UI que tiene la implementación necesaria para que puedas instanciar tu caso de uso con el **IEventDispatcher**
+First, you must install our UI package which has the necessary implementation so you can instantiate your use case with the **IEventDispatcher**
 
 ```bash
 npm i --save @codescouts/ui
 ```
 
-Puedes instanciar a mano tu caso de uso de esta manera, aunque también puedes utilizar inyección de dependencias si así lo deseas [**Dependency injection**](./dependency-injection)
+You can manually instantiate your use case like this, although you can also use dependency injection if you prefer [**Dependency injection**](./dependency-injection)
 
 ```ts showLineNumbers
-export const Foo = ()=> {
-    const dispatcher = useEventDispatcher();
-    const useCase = new TestUseCase(dispatcher);
+export const Foo = () => {
+  const dispatcher = useEventDispatcher();
+  const useCase = new TestUseCase(dispatcher);
 
-    useCase.execute("Test");
+  useCase.execute("Test");
 
-    return <>Hi</>
-}
+  return <>Hi</>;
+};
 ```
 
-Aún no terminamos, ya que en tu aplicación React tendrás que ejecutar el hook de **useEvents** así 👇 para que tu aplicación registre los **Handlers** del los **DomainEvents** que tienes.
+We’re not done yet, because in your React application you will need to execute the **useEvents** hook like this 👇 so your app registers the **Handlers** for the **DomainEvents** you have.
 
 ```ts showLineNumbers
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -113,33 +110,33 @@ import { Header } from "@ui/components";
 import { Home } from "@ui/pages";
 
 const App = () => {
-// highlight-start
+  // highlight-start
   useEvents(() => {
     new NewLogRegisteredHandler();
   });
-// highlight-end
+  // highlight-end
 
   return (
-      <BrowserRouter>
-        <div className="app">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+    <BrowserRouter>
+      <div className="app">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 
 export default App;
 ```
 
-Lo único que tienes que hacer es instanciar el tu **Handler** dentro del **useEvents**
+All you need to do is instantiate your **Handler** inside the **useEvents**
 
-No hace falta aclarar, pero lógicamente aquí es donde registrarás todos tus handlers, incluso te recomendamos que puedas generarte una función que registre todos los handlers, y aquí referenciarla.
+It goes without saying, but logically this is where you will register all your handlers, and we even recommend you create a function to register all handlers, and then reference it here.
 
-:::note nota
-Si necesitas pasarle al handler la implementación de un hook, primer debes ejecutar el hook **fuera** del useEvents y pasarle la referencia
+:::note note
+If you need to pass an implementation of a hook to the handler, you must first execute the hook **outside** of useEvents and pass its reference
 :::
 
 ```ts showLineNumbers

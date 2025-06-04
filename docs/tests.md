@@ -4,32 +4,32 @@ sidebar_position: 4
 
 # Tests
 
-## Utilidad
+## Utility
 
-Esta librería te permitirá hacer tests unitarios y de integración mucho más rápido
+This library will enable you to conduct unit and integration tests much faster.
 
-## Instalación
+## Installation
 
-Este store puedes instalarlo de la siguiente forma:
+You can install this store as follows:
 
 ```bash
 npm i --save-dev @codescouts/test
 ```
 
-## Dependencias
+## Dependencies
 
--   [**jest-mock-extended**](https://github.com/marchaos/jest-mock-extended)
--   [**MSW**](https://github.com/mswjs/msw)
+- [**jest-mock-extended**](https://github.com/marchaos/jest-mock-extended)
+- [**MSW**](https://github.com/mswjs/msw)
 
 ## Unit tests
 
-En caso de los unit tests, nuestra librería no modifica mucho el comportamiento original de **jest-mock-extended** simplemente la expone como una herramienta más.
+For unit tests, our library does not significantly alter the original behaviour of **jest-mock-extended** but simply exposes it as an additional tool.
 
-### Comienza por aquí
+### Start here
 
-Vamos a hacer un test unitario de nuestro **caso de uso** continuando con el ejemplo del log.
+Let’s perform a unit test of our **use case**, continuing with the log example.
 
-### El caso de uso
+### The use case
 
 ```ts showLineNumbers
 import { IEventDispatcher } from "@codescouts/events";
@@ -38,15 +38,13 @@ import { Log } from "@domain/model/Log";
 import { NewLogRegistered } from "@domain/events/NewLogRegistered";
 
 export class TestUseCase {
-    constructor(private readonly dispatcher: IEventDispatcher) {
+  constructor(private readonly dispatcher: IEventDispatcher) {}
 
-    }
+  public execute(message: string) {
+    const log = new Log(message);
 
-    public execute(message: string) {
-        const log = new Log(message);
-
-        this.dispatcher.dispatch(new NewLogRegistered(log));
-    }
+    this.dispatcher.dispatch(new NewLogRegistered(log));
+  }
 }
 ```
 
@@ -62,131 +60,130 @@ import { Log } from "@domain/model";
 
 import { TestUseCase } from "./test-use-case";
 
-jest
-    .useFakeTimers()
-    .setSystemTime(new Date('2020-01-01'));
+jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
 
 describe("TestUseCase should", () => {
-    test("dispatch event with message log", () => {
-        //highlight-start
-        const eventDispatcher = mock<IEventDispatcher>();
-        //highlight-end
+  test("dispatch event with message log", () => {
+    //highlight-start
+    const eventDispatcher = mock<IEventDispatcher>();
+    //highlight-end
 
-        const useCase = new TestUseCase(eventDispatcher);
+    const useCase = new TestUseCase(eventDispatcher);
 
-        useCase.execute("Foo");
+    useCase.execute("Foo");
 
-        expect(eventDispatcher.dispatch).toHaveBeenCalledWith(new NewLogRegistered(new Log("Foo")));
-    })
-})
+    expect(eventDispatcher.dispatch).toHaveBeenCalledWith(
+      new NewLogRegistered(new Log("Foo"))
+    );
+  });
+});
 ```
 
 :::note ota
-Si necesitas saber más como funciona [jest-mock-extended](https://github.com/marchaos/jest-mock-extended), consulta su documentación. En esta librería solo exponemos su funcionalidad.
+If you need to learn more about how [jest-mock-extended](https://github.com/marchaos/jest-mock-extended) works, consult its documentation. This library merely exposes its functionality.
 :::
 
 ## Integration test
 
-Para realizar tests de integración donde necesitemos verificar el llamado a servicios externos, podemos utilizar esta librería, nos permitirá verificar que nos comunicamos con el mundo exterior a traves del **protocolo http** permitiéndonos moquear nuestras peticiones.
+To conduct integration tests where we need to verify calls to external services, this library allows you to confirm communication with the external world through the **HTTP protocol** by enabling request mocking.
 
-Veamos como la usaríamos 
+Let’s see how to use it.
 
 ```ts showLineNumbers
 import { setupServer } from "@codescouts/test/integration";
 
 describe("SetupServer should", () => {
-    const server = setupServer();
+  const server = setupServer();
 
-    test("Intercept get request", async () => {
-        const responseMocked = {
-            response: "GETTING Object"
-        };
+  test("Intercept GET request", async () => {
+    const responseMocked = {
+      response: "GETTING Object",
+    };
 
-        server.mockGet("http://localhost:2000/test", 200, responseMocked);
+    server.mockGet("http://localhost:2000/test", 200, responseMocked);
 
-        const response = await fetch("http://localhost:2000/test");
-        const json = await response.json();
+    const response = await fetch("http://localhost:2000/test");
+    const json = await response.json();
 
-        expect(response.status).toEqual(200)
-        expect(json).toEqual(responseMocked)
-    })
+    expect(response.status).toEqual(200);
+    expect(json).toEqual(responseMocked);
+  });
 
-    test("Intercept post request", async () => {
-        const responseMocked = {
-            response: "POSTING Object"
-        };
+  test("Intercept POST request", async () => {
+    const responseMocked = {
+      response: "POSTING Object",
+    };
 
-        server.mockPost("http://localhost:2000/test", 200, responseMocked);
+    server.mockPost("http://localhost:2000/test", 200, responseMocked);
 
-        const response = await fetch("http://localhost:2000/test", {
-            method: "POST",
-            body: JSON.stringify({
-                "fake": "request"
-            })
-        });
+    const response = await fetch("http://localhost:2000/test", {
+      method: "POST",
+      body: JSON.stringify({
+        fake: "request",
+      }),
+    });
 
-        const json = await response.json();
+    const json = await response.json();
 
-        expect(json).toEqual(responseMocked)
-    })
+    expect(json).toEqual(responseMocked);
+  });
 
+  test("Intercept PUT request", async () => {
+    const responseMocked = {
+      response: "PUTTING Object",
+    };
 
-    test("Intercept put request", async () => {
-        const responseMocked = {
-            response: "PUTTING Object"
-        };
+    server.mockPut("http://localhost:2000/test/1", 200, responseMocked);
 
-        server.mockPut("http://localhost:2000/test/1", 200, responseMocked);
+    const response = await fetch("http://localhost:2000/test/1", {
+      method: "PUT",
+      body: JSON.stringify({
+        fake: "request",
+      }),
+    });
 
-        const response = await fetch("http://localhost:2000/test/1", {
-            method: "PUT",
-            body: JSON.stringify({
-                "fake": "request"
-            })
-        });
+    const json = await response.json();
 
-        const json = await response.json();
+    expect(json).toEqual(responseMocked);
+  });
 
-        expect(json).toEqual(responseMocked)
-    })
+  test("Intercept PATCH request", async () => {
+    const responseMocked = {
+      response: "PATCHING Object",
+    };
 
-    test("Intercept patch request", async () => {
-        const responseMocked = {
-            response: "PATCHING Object"
-        };
+    server.mockPatch("http://localhost:2000/test/1", 200, responseMocked);
 
-        server.mockPatch("http://localhost:2000/test/1", 200, responseMocked);
+    const response = await fetch("http://localhost:2000/test/1", {
+      method: "PATCH",
+      body: JSON.stringify({
+        fake: "request",
+      }),
+    });
 
-        const response = await fetch("http://localhost:2000/test/1", {
-            method: "PATCH",
-            body: JSON.stringify({
-                "fake": "request"
-            })
-        });
+    const json = await response.json();
 
-        const json = await response.json();
+    expect(json).toEqual(responseMocked);
+  });
 
-        expect(json).toEqual(responseMocked)
-    })
+  test("Intercept DELETE request", async () => {
+    const responseMocked = {
+      response: "DELETING Object",
+    };
 
-    test("Intercept Delete request", async () => {
-        const responseMocked = {
-            response: "DELETING Object"
-        };
+    server.mockDelete("http://localhost:2000/test/1", 200, responseMocked);
 
-        server.mockDelete("http://localhost:2000/test/1", 200, responseMocked);
+    const response = await fetch("http://localhost:2000/test/1", {
+      method: "DELETE",
+    });
 
-        const response = await fetch("http://localhost:2000/test/1", {
-            method: "DELETE"
-        });
+    const json = await response.json();
 
-        const json = await response.json();
-
-        expect(json).toEqual(responseMocked)
-    })
-})
+    expect(json).toEqual(responseMocked);
+  });
+});
 ```
 
-:::note nota
-Esta librería controla el ciclo de vida de los tests con **jest**, definiendo por defecto el **beforeEach**, **afterEach**, y **afterAll**
+:::note note
+This library manages the lifecycle of tests with **jest**, defining **beforeEach**, **afterEach**, and **afterAll** by default.
 :::

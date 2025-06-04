@@ -4,66 +4,65 @@ sidebar_position: 1
 
 # Intro
 
-Bienvenido a **Library de CodeScouts**, en este sitio encontrarás documentación acerca de nuestras librerías qu te permitirán implementar [**Clean architecture**](./clean-architecture) en Frontend, por el momento con [**React**](https://reactjs.org/), aunque estamos trabajando para implementarla en [**Svelte**](https://svelte.dev/) y [**VueJS**](https://vuejs.org/)
+Welcome to the **CodeScouts Library**. On this site, you’ll find documentation about our libraries that allow you to implement [**Clean Architecture**](./clean-architecture) in Frontend development, currently with [**React**](https://reactjs.org/), although we are working to extend support to [**Svelte**](https://svelte.dev/) and [**VueJS**](https://vuejs.org/).
 
-Nuestro reto es enseñarte a implementarla en **no más de 5 minutos**. Vamos 🚀
+Our goal is to teach you how to implement it in **no more than 5 minutes**. Let’s go 🚀
 
 ## Disclaimer
 
-Estas librerías se encuentran en permanente cambio, trabajamos con [semantic versioning](https://semver.org/) para evitar breaking changes en tu código, y te invitamos a que reportes issues en caso que lo detectes.
+These libraries are continuously evolving. We follow [semantic versioning](https://semver.org/) to avoid breaking changes in your code, and we encourage you to report any issues you detect.
 
-## Conocimiento previo
+## Prerequisite Knowledge
 
-Tal como estás leyendo, estas librerías te permiten implementar una arquitectura limpia en tu frontend, para que puedas testear, mantener y escalar más rápido tu software.
+As you’re reading, these libraries enable you to implement clean architecture in your frontend, allowing you to test, maintain, and scale your software faster.
 
-### Clean architecture
+### Clean Architecture
 
-Si no sabes que es **Clean architecture** o quieres profundizar más al respecto, te recomendamos que primero leas este post [**Clean architecture**](./clean-architecture)
-antes de continuar.
+If you’re unfamiliar with **Clean Architecture** or would like to dive deeper into it, we recommend you first read this post [**Clean Architecture**](./clean-architecture) before proceeding.
 
-## Comencemos
+## Let’s Get Started
 
-Para poder implementar nuestra librería tienes dos opciones.
+To implement our library, you have two options:
 
-### Crea una nueva web con (React)
+### Create a New Web App (React)
 
-1.  Install from template
+1. Install from the template
 
 ```bash
 npx degit codescouts-academy/react-clean-architecture my-app
 ```
 
-2.  Install dependencies
+2. Install dependencies
 
 ```bash
 npm i
 ```
 
-3.  Start app
+3. Start the app
 
 ```bash
 npm run dev
 ```
 
-### Utiliza nuestro template (Create react app)
+### Use Our Template (Create React App)
 
-1.  Install from template
+1. Install from the template
 
 ```bash
 npx create-react-app my-app --template @codescouts/clean-architecture-template
 ```
 
-2.  Install dependencies
+2. Install dependencies
 
 ```bash
 npm i
 ```
 
-3.  Start app
+3. Start the app
 
 ```bash
 npm start
 ```
 
-Si utilizas nuestro template verás algo así 👇
+If you use our template, you’ll see something like this 👇
 ![](../static/img/from-template.gif)
